@@ -36,7 +36,7 @@ namespace Components
                 ++i;
             }
 
-            Console.Out.WriteLine("No. of elements:" + i);
+            Logger.Info("No. of elements:" + i);
             j = 0;
             k = i;
             n = k;

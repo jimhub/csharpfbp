@@ -10,6 +10,7 @@ namespace FBPLib
     //  using System.Text.RegularExpressions;
 
     using FBPLib.Properties;
+    using Util;
 
 
     /// <summary> The abstract class which all flow Networks extend directly or
@@ -539,8 +540,7 @@ namespace FBPLib
                 {
                     string s = "Flow Error :" + e;
 
-                    Console.Out.WriteLine("Network: " + s);
-                    Console.Out.Flush();
+                    Logger.Error("Network: " + s);
                     // rethrow the exception for external error handling
                     // in case of a deadlock: deadlock is the cause
                     throw e;
@@ -554,9 +554,9 @@ namespace FBPLib
 
                 TimeSpan duration = DateTime.Now - now;
 
-                Console.Out.WriteLine("{0} - run time: {1}", Name, duration);
+                Logger.Info("{0} - run time: {1}", Name, duration);
                 
-                Console.Out.WriteLine("Counts: C: {0}, D: {1}, S: {2}, R (non-null): {3}, DO: {4}", creates, drops, sends, receives, dropOlds);
+                Logger.Info("Counts: C: {0}, D: {1}, S: {2}, R (non-null): {3}, DO: {4}", creates, drops, sends, receives, dropOlds);
                 CloseTraceFiles();
 
             });
@@ -745,9 +745,8 @@ namespace FBPLib
                             {
                                 //          interruptAll();
                                 foreach (string m in _msgs)
-                                    Console.Out.WriteLine(m);
-                                Console.Out.WriteLine("*** Deadlock detected in Network ");
-                                Console.Out.Flush();
+                                    Logger.Info(m);
+                                Logger.Info("*** Deadlock detected in Network ");
 
                                 // terminate the net instead of crashing the application
                                 Terminate();
@@ -864,7 +863,7 @@ namespace FBPLib
                 if (!c.IsTerminated())
                 {
                     c._thread.Interrupt();
-                    Console.Out.WriteLine(c.Name + " interrupted");
+                    Logger.Info(c.Name + " interrupted");
                 }
 
             }
@@ -941,8 +940,7 @@ namespace FBPLib
                     {
                         lock (_network)
                         {
-                            Console.Out.WriteLine(dt + " " + n + ": " + msg);
-                            Console.Out.Flush();
+                            Logger.Info(dt + " " + n + ": " + msg);
                         }
                         return;
                     }
@@ -966,10 +964,9 @@ namespace FBPLib
                             // _tracing = false;
                             lock (_network)
                             {
-                                Console.Out.WriteLine("Trace file " + s + " could not be opened - \n" +
+                                Logger.Warn("Trace file " + s + " could not be opened - \n" +
                                 "   writing to console...");
-                                Console.Out.WriteLine(dt + " " + n + ": " + msg);
-                                Console.Out.Flush();
+                                Logger.Warn(dt + " " + n + ": " + msg);
                             }
                             _useConsole = true;
                             return;
@@ -983,10 +980,9 @@ namespace FBPLib
                     }
                     catch (IOException e)
                     {
-                        Console.Out.WriteLine("Trace file " + fs.Name + " could not be written - \n" +
+                        Logger.Error("Trace file " + fs.Name + " could not be written - \n" +
                                 "   writing to console...");
-                        Console.Out.WriteLine(dt + " " + n + ": " + msg);
-                        Console.Out.Flush();
+                        Logger.Error(dt + " " + n + ": " + msg);
                     }
 
                 }

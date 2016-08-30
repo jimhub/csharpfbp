@@ -6,6 +6,7 @@ namespace FBPLib
     using System.Threading;
     using System.Text.RegularExpressions;
     using System.Reflection;
+    using Util;
 
     /// <summary> All verbs must extend this class, defining its three abstract methods
     /// <code>openPorts<code>, <code>metadata<code>, and <code>execute</code>.
@@ -963,7 +964,7 @@ namespace FBPLib
                 {
                     continue;
                 }
-                Console.WriteLine("Input port specified in metadata, but not connected: " + Name + "." +
+                Logger.Warn("Input port specified in metadata, but not connected: " + Name + "." +
               kvp.Value.Name);
                 res = false;
             }
@@ -979,7 +980,7 @@ namespace FBPLib
                     continue;
                 }
 
-                Console.WriteLine("Output port specified in metadata, but not connected: " + Name + "." +
+                    Logger.Warn("Output port specified in metadata, but not connected: " + Name + "." +
                     kvp.Value.Name);
                 res = false;
             }
@@ -1098,7 +1099,7 @@ namespace FBPLib
                         FlowError.Complain("Component Exception: " + Name + " - " + s);
                     }
                     else
-                        Console.Out.WriteLine("! Component Exception: " + Name + " - " + e.Message);
+                        Logger.Error("! Component Exception: " + Name + " - " + e.Message);
                 }
 
                 _mother.Trace("{0}: Deactivated", Name);
@@ -1177,11 +1178,11 @@ namespace FBPLib
                 {
                     Connection cx = port as Connection;
                     if (cx.Count() > 0)
-                        Console.Out.WriteLine("{0}: Component terminated with {1} packets in input connection", cx.Name, cx.Count());
+                        Logger.Info("{0}: Component terminated with {1} packets in input connection", cx.Name, cx.Count());
                     while (cx.Count() > 0)
                     {
                         Packet p = cx._buffer.Take();
-                        Console.Out.WriteLine(p);
+                        Logger.Info(p);
                     }
 
 

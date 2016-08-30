@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FBPLib;
+using FBPLib.Util;
 
 namespace Components
 {
@@ -47,7 +48,7 @@ namespace Components
                     // else System.out.println( "Line written " + count + " by" + getName());
                 }
             }
-            Console.Out.WriteLine("Repl complete. " + Name);
+            Logger.Info("Repl complete. " + Name);
         }
         /*
         public override Object[] Introspect()

@@ -3,8 +3,7 @@ using System.IO;
 using FBPLib;
 using System.Net.Sockets;
 using System.Net;
-
-
+using FBPLib.Util;
 
 namespace Components
 {
@@ -57,7 +56,7 @@ namespace Components
             {
                 if (client.Connected)
                 {
-                    Console.Out.WriteLine("RS Client connected");
+                    Logger.Info("RS Client connected");
                     //open network stream on accepted socket
 
                     networkStream = client.GetStream();
@@ -67,7 +66,7 @@ namespace Components
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.StackTrace);
+                Logger.Error(e.StackTrace);
                 return;
             }
 
@@ -81,7 +80,7 @@ namespace Components
                 int i = Int32.Parse(s);
                 if (i != cyclic_count)
                 {
-                    Console.Error.WriteLine("Sequence error: " + this.Name);
+                    Logger.Error("Sequence error: " + this.Name);
                     break;
                 }
                 //Console.Out.WriteLine("RS read: " + theString);
@@ -106,7 +105,7 @@ namespace Components
             streamWriter.Close();
 
             client.Close();
-            Console.WriteLine(this.Name + " Exiting...");
+            Logger.Info(this.Name + " Exiting...");
             tcpServerListener.Stop();
         }
 

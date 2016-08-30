@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Spring.Threading.Helpers;
+using FBPLib.Util;
 
 namespace FBPLib
 {
@@ -83,7 +84,7 @@ namespace FBPLib
                 catch (FlowError e)
                 {
                     string s = "Flow Error :" + e;
-                    Console.Out.WriteLine("Network: " + s);
+                    Logger.Error("Network: " + s);
                     throw e;
                 }
             }

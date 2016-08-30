@@ -4,8 +4,7 @@ using FBPLib;
 //using System.Threading;
 using System.Net.Sockets;
 using System.Net;
-
-
+using FBPLib.Util;
 
 namespace Components
 {
@@ -68,7 +67,7 @@ namespace Components
             }
             catch
             {
-                Console.Error.WriteLine(
+                Logger.Error(
                 "Failed to connect to server at {0}:{1}", "localhost", port);
                 return;
             }
@@ -100,7 +99,7 @@ namespace Components
                 }
                 catch
                 {
-                    Console.Error.WriteLine("Exception reading from Server");
+                    Logger.Error("Exception reading from Server");
                 }
                
                 if (_outport.IsConnected())
@@ -110,7 +109,7 @@ namespace Components
                 cyclic_count = (cyclic_count + 1) % 10000;
             }
             streamWriter.WriteLine("Closedown");
-            Console.WriteLine(this.Name + " Closing");
+            Logger.Info(this.Name + " Closing");
             streamWriter.Flush();
             networkStream.Close();
             streamReader.Close();

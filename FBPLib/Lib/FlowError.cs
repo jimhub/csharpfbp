@@ -1,6 +1,7 @@
 namespace FBPLib
 {
     using System;
+    using Util;
 
 
     /// <summary> Instances of this class are thrown whenever a programming error
@@ -38,7 +39,7 @@ namespace FBPLib
         /// </param>
         public static void Complain(string text)
         {
-            Console.Out.WriteLine(text);
+            Logger.Error(text);
             throw new FlowError(text);
         }
         public static void Assert(bool check, string message)

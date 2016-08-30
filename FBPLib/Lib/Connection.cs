@@ -4,6 +4,7 @@ namespace FBPLib
     using System;
     using System.Collections;
     using System.Threading;
+    using Util;
 
 
     /// <summary>This class implements buffering between Component threads.
@@ -126,7 +127,7 @@ namespace FBPLib
                     return;
                 _senderCount = 0; // set sender count to zero
                 if (_buffer.Count() > 0)
-                    Console.Out.WriteLine(_buffer.Count() + " packets on input connection lost");
+                    Logger.Info(_buffer.Count() + " packets on input connection lost");
 
                 System.Threading.Monitor.PulseAll(this); // wakes up any senders waiting for slots
 

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using FBPLib;
+using FBPLib.Util;
 
 namespace Components
 {
@@ -35,15 +36,15 @@ namespace Components
                 switch (p.Type)
                 {
                     case Packet.Types.Open:
-                        Console.Out.WriteLine("OPEN(" + level + ")");
+                        Logger.Info("OPEN(" + level + ")");
                         level++;
                         break;
                     case Packet.Types.Close:
                         level--;
-                        Console.Out.WriteLine("CLOSE(" + level + ")");
+                        Logger.Info("CLOSE(" + level + ")");
                         break;
                     default:
-                        Console.Out.WriteLine(p.Content);
+                        Logger.Info(p.Content);
                         break;
                 }
                 Drop(p);
