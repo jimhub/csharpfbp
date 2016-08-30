@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 using FBPLib;
 using Components;
 using System.Windows.Forms;
@@ -26,7 +23,7 @@ namespace Concord
             Component("Show1", typeof(WriteTextBox));
             Component("Show2", typeof(WriteTextBox));
 
-            Initialize(@"..\..\", "Dir1.IN");
+            Initialize(@"..\..\..\Concord\Resources", "Dir1.IN");
             Initialize(@"fake_cy", "Match.CONFIG");
             Initialize(@"5,50", "Format.CONFIG");
             TextBox tb = parms[0] as TextBox;
